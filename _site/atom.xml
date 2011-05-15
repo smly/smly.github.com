@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>ChangeLog</title>
+ <link href="/atom.xml" rel="self"/>
+ <link href="http://smly.github.com"/>
+ <updated>2011-05-15T17:51:21+09:00</updated>
+ <id>http://smly.github.com/</id>
+ <author>
+   <name>smly</name>
+   <email>smly@hatena.ne.jp</email>
+ </author>
+
+ 
+ <entry>
+   <title>homebrew-alt で gcc-4.6 をインストール</title>
+   <link href="http://smly.github.com/2011/05/15/first-post.html"/>
+   <updated>2011-05-15T00:00:00+09:00</updated>
+   <id>http://smly.github.com/2011/05/15/first-post</id>
+   <content type="html">&lt;p&gt;OSX 環境で新しめの gcc をインストールするにはどうすれば良いのだろうか, と調べたところ, homebrew-alt というレポジトリがあるので, そこから install すると楽だった.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo brew install https://github.com/adamv/homebrew-alt/raw/master/duplicates/gcc.rb \
+    --enable-cxx --enable-objc --enable-objcxx
+$ sudo ln -sf /usr/local/bin/gcc-4.6 /usr/bin/gcc
+$ sudo ln -sf /usr/local/bin/g++-4.6 /usr/bin/g++&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3 月ごろに adamv/duplicates や adamv/versions が退避してきたものらしい. versions には代表的なものとして gcc45, python31, python24 などがある.&lt;/p&gt;
+&lt;!--
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+--&gt;</content>
+ </entry>
+ 
+ 
+</feed>
