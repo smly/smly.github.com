@@ -201,3 +201,7 @@ ul.posts {
   #related h2 {
     margin-bottom: 1em;
   }
+
+#dsq-footer {
+    display: none;
+}
