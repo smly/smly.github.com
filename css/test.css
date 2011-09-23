@@ -14,6 +14,10 @@ body {
   color: #101010;
 }
 
+div.bmark {
+  text-align: right;
+}
+
 pre {
   background: none repeat scroll 0 50% #EEEEEE;
   border: 1px solid #CCCCCC;
