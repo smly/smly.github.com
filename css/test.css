@@ -2,7 +2,7 @@ body {
   background: white;
   background-image: url(http://ooxo.org/img/backg.png);
   background-repeat: repeat-x;
-  font-family: "Helvetica Neue";
+  font-family: 'Trebuchet MS','メイリオ',"Helvetica Neue",sans-serif;
   text-rendering: optimizeLegibility;
   padding: 0 0.2cm 0 0.2cm;
   margin-top: 0;
