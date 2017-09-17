@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>    Winning Solution for the Spacenet Challenge: Joint Learning with OpenStreetMap
+</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/contrib/auto-render.min.js"></script>
+        -->
+        <link rel="stylesheet" href="/theme/css/screen.css">
+        <link rel="stylesheet" href="/theme/css/smly.css">
+        <link rel="stylesheet" href="/theme/dist/katex/katex.min.css">
+        <script src="/theme/dist/jquery-3.1.1.min.js"></script>
+        <script src="/theme/dist/katex/katex.min.js"></script>
+        <script src="/theme/dist/katex/auto-render.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+            <div class="container">
+
+<header class="blog-header">
+  <div id="header-inner">
+    <span class="first name tooltip header-top tooltipstered">
+      <a href="/"><b>Kohei Ozaki</b></a>
+    </span>
+
+    <span class="first tooltip header-blog" title="About me (Kohei Ozaki)">
+      <a href="/pages/about.html"><i class="demo-icon icon-info-circled-alt"> </i></a>
+    </span>
+
+    <span class="tooltip header-blog" title="Blog">
+      <a href="/"><i class="demo-icon icon-list"> </i></a>
+    </span>
+
+    <span class="first tooltip header-twitter" title="Twitter / @smly">
+      <a href="http://twitter.com/smly/"><i data-search="twitter 00ff00" class="demo-icon icon-twitter"> </i></a>
+    </span>
+
+    <span class="tooltip header-github" title="GitHub / smly">
+      <a href="http://github.com/smly/"><i class="demo-icon icon-github"> </i></a>
+    </span>
+
+    <span class="tooltip header-kaggle" title="Kaggle / :-)">
+      <a href="https://kaggle.com/confirm"><i class="demo-icon icon-kaggle"> </i></a>
+    </span>
+
+<!--
+    <span class="tooltip header-quant" title="Quantopian">
+      <a href="https://www.quantopian.com/users/54bf53c423625f40290001e2"><i class="demo-icon icon-quantopian"> </i></a>
+    </span>
+
+    <span class="tooltip header-hatebu" title="HatenaBookmark / smly">
+      <a href=""><i class="demo-icon icon-hatenabookmark"> </i></a>
+    </span>
+
+    <span class="tooltip header-facebook" title="facebook / Kohei Ozaki">
+      <a href=""><i class="demo-icon icon-facebook"> </i></a>
+    </span>
+    <span class="tooltip header-speakerdeck" title="speakerdeck / Kohei Ozaki">
+      <a href="https://speakerdeck.com/smly/"><i class="demo-icon icon-speakerdeck"> </i></a>
+    </span>
+-->
+
+    <span class="tooltip header-linkedin" title="About me (Kohei Ozaki)">
+      <a href="https://jp.linkedin.com/in/koheiozaki/"><i class="demo-icon icon-linkedin"> </i></a>
+    </span>
+
+    <!-- <p></p> -->
+    <!--
+    <nav>
+        <a href="/">index</a>
+        <a href="/categories">about</a>
+        <a href="/categories">rss</a>
+    </nav>
+    -->
+  </div>
+</header>
+
+    <div class="post" id="main">
+        <header>
+            <h1>Winning Solution for the Spacenet Challenge: Joint Learning with OpenStreetMap</h1>
+            <p class="date"><time datetime="2017-06-14T01:00:00+09:00">2017-06-14</time></p>
+        </header>
+
+        <article>
+            <p><img alt="vegas" src="./images/vegas_long.png" /></p>
+<p>I won the overall contest and also all the 4 city level prizes on the Spacenet Challenge Round 2.
+<a href="http://explore.digitalglobe.com/spacenet">Spacenet</a> is a collaboration between <a href="https://www.digitalglobe.com/">DigitalGlobe</a> (a commercial vendor of space imagery and geospatial content), <a href="http://www.cosmiqworks.org/">CosmiQ Works</a> (a division of <a href="https://www.iqt.org/">In-Q-Tel</a> Lab) and <a href="http://www.nvidia.com/page/home.html">NVIDIA</a> (the world leading company in visual computing technologies).
+It consists of an online repository of freely available satellite imagery,
+co-registered map layers to train algorithms, and public challenges that aim to
+accelerate innovation in machine leanring.
+This blogpost describes my winning solution on the public challenge hosted by <a href="https://community.topcoder.com/longcontest/?module=Static&amp;d1=instructions">Topcoder Marathon Match</a>.</p>
+<p><strong>TL;DR,</strong></p>
+<ul>
+<li>Adding OpenStreetMap layers into the input of U-Net model significantly improves F-score.</li>
+<li>The field of GPU computing is quickly evolving. For training a deep neural network model, the computational time on p2.xlarge (Tesla K80, released in 2014) is two times longer than my personal graphic card (GeForce GTX 1080, released in 2016).</li>
+</ul>
+<h3>The Spacenet Challenge</h3>
+<p>This competition asks its participants to submit an algorithm that
+inputs satellite images (of Las Vegas, Paris, Shanghai and Khartoum) and
+outputs polygons of building footprints. The algorithm is evaluated based on F-score.
+The polygon of building footprint proposed by the algorithm is considered as a
+true positive if its IOU (Intersection over Union, Jaccard index) score is higher than 0.5.
+See <a href="https://community.topcoder.com/longcontest/?module=ViewProblemStatement&amp;rd=16892&amp;compid=54956">Problem Statement</a> for details.</p>
+<h3>Overview of Winning Solution</h3>
+<p>I applied a modified U-Net model, one of deep neural network model for image
+segmentation. My final submission is the averaging ensemble from individually
+trained three U-Net models. In addition, I found the use of OpenStreetMap data
+is effective for predicting the building footprint. My best individual model
+simply uses OpenStreetMap layers and multispectral layers as the input of the
+deep neural network simultaneously (as described in Figure1).</p>
+<p><img alt="model" src="./images/20170602_spacenet_r2_unet.png" /></p>
+<div class="caption">
+<small>
+<b>Figure 1</b>: Best individual model with using OpenStreetMap and Pan-sharpened Multispectral data.
+</small>
+</div>
+
+<p><a href="https://arxiv.org/abs/1705.06057">[Audebert et al 2017]</a>, published on May 17, also investigates the use of
+OpenStreetMap for semantic labeling of satellite image. I individually
+investigated and evaluated the similar approach on Spacenet Challenge dataset (my
+first submission with the approach is on May 13, a little earlier than their
+publication).</p>
+<h3>Solution Development</h3>
+<p><strong>Modeling</strong>. I solved the problem as a semantic segmentation task in computer
+vision. My model is based on a variant of fully convolutional neural network,
+U-Net, which is developed by <a href="https://arxiv.org/abs/1505.04597">[Ronneberger et al, 2015]</a>. U-Net is one of the most successful and popular
+convolutional neural network architecture for medical image segmentation. It
+can be trained end-to-end from few images and outperform the prior best method
+on the ISBI cell tracking challenge 2015.
+Figure 2 shows an example output by my solution with U-Net models. Most
+building footprints are successfully detected with high intersection area over
+union (&gt; 0.8). Another example output of L-shaped and concave buildings in
+Vegas is shown in Figure 2.1. Lee Cohn, a data scientist at CosmiQ Works,
+<a href="https://medium.com/the-downlinq/object-segmentation-on-spacenet-via-multi-task-network-cascades-mnc-f1c89d790b42">described his result of applying the Multi-task Network Cascades (MNC) and MNC struggles with L-shaped and concave buildings.</a> By contrast, my U-Net based
+model can detect L-shaped and concave buildings successfully.</p>
+<p><strong>RGB or MUL</strong>. In early stage of the contest, I only used RGB 3 channels. Later
+I found that using 8-bands multispectral data improves the performance.</p>
+<p><img alt="examplevegas" src="./images/20170602_spacenet_vegas_example.png" /></p>
+<div class="caption">
+<small>
+<b>Figure 2</b>: An example output in Vegas from validation set. Most building footprints are
+precisely detected. The number displayed on the building footprint represents
+the intersection area over union (IoU) between the prediction and the ground
+truth.
+</small>
+</div>
+
+<p><img alt="examplevegas" src="./images/20170602_spacenet_vegas_lshape.png" /></p>
+<div class="caption">
+<small>
+<b>Figure 2.1</b>: Another example output in Vegas. L-shaped and concave buildings are detected successfully.
+</small>
+</div>
+
+<h3>Final Approach: Averaging Ensemble of three U-Net based models</h3>
+<p><strong>Parameter optimization</strong>. To develop the individual U-net model, I split the
+training data into two parts: 70 percent for training and the remaining 30
+percent for validation. To avoid overfitting, early stopping with Jaccard
+coefficient is applied for training. After training the model with 70 percent
+of the data, the trained model is evaluated on the remaining 30 percent and
+chose the best one.</p>
+<p><strong>Trade-off between precision and recall</strong>. I noticed precision on small objects
+is not good compared with other objects. Consequently, it is possible to
+improve F-score by eliminating small objects. I searched the threshold size of
+minimum polygon area by using validation set and eliminated small objects
+under the area size.</p>
+<p><strong>Averaging Ensemble</strong>. I created various U-Net models and built an averaging
+ensemble of three U-Net models. A diverse set of models was selected for
+ensemble. First model is learnt with global context by rescaling multispectral
+images from 650x650 pixsels into 256x256 pixsels. Second model uses the
+original scale multispectral data. Third model uses the original scale and the
+combination of OpenStreetMap and multispectral data.</p>
+<p><strong>OpenStreetMap</strong>. Joint learning from OpenStreetMap and multispectral data
+works. By observation, footprints of residential and industrial buildings has
+different shape. Obviously, there are no buildings on water area or road in
+general. I used the layer of residential land use, agricultural land use,
+industrial land use, water area, buildings and roads on OpenStreetMap. Figure
+3.1 shows the example of layers on OpenStreetMap.</p>
+<p><img alt="performance comparison" src="./images/20170602_spacenet_performance_comparison.png" /></p>
+<div class="caption">
+<small><b>Figure 3</b>: Performance comparison on the provisional scores. v9s uses 256/650 scale
+multispectral images. v13 uses the original scale multispectral images. v16
+uses the original scale multispectral images and OpenStreetMap data. v17 is an
+ensemble model with averaging the prediction probability of v9s, v13 and v16
+model.
+</small>
+</div>
+
+<p><img alt="osm" src="./images/20170603_osm_mask_all.png" /></p>
+<div class="caption">
+<small>
+<b>Figure 3.1</b>: Examples of layers on OpenStreetMap: From left side, ground truth, earth
+observation, buildings, residential land use, industrial land use and roads.
+</small>
+</div>
+
+<h3>Algorithm Limitations</h3>
+<ol>
+<li>Low precision for small object, especially in the case of Shanghai and Khartoum.</li>
+<li>As in the case of Khartoum, my solution does not have good results in scenes where annotation rules are not clear, see Figure 4.</li>
+<li>My model is unable to recognize multiple buildings that are close in distance as one building footprint. Examples of false negatives are shown in Figure 4.1.</li>
+</ol>
+<p><img alt="khartoum" src="./images/20170603_khartoum_labels.png" /></p>
+<div class="caption">
+<small><b>Figure 4</b>: The annotation rules in Khartoum are relatively ambiguous. As the result, the
+shape of predictions are unclear. On the right image, the ground truth (blue or
+white part) is grouped and large. On the left, the ground truth is separated
+and small.
+</small>
+</div>
+
+<p><img alt="false negative" src="./images/20170603_false_negative.png" /></p>
+<div class="caption">
+<small><b>Figure 4.1</b>: Examples of false negatives. My model recognizes multiple buildings that are
+close in distance as one building footprint.
+</small>
+</div>
+
+<h3>Further Improvement</h3>
+<ol>
+<li>Developing and changing a network architecture could reduce the size of the required graphical RAM and computational time. See also: <a href="https://arxiv.org/abs/1612.01337">[Marmanis et al, 2016]</a> and <a href="https://arxiv.org/abs/1705.06057">[Nicolas et al, 2017]</a>.</li>
+<li>Segmentation nets are numerically unstable. Batch normalization could be effective to the problem. Julian de Wit applied Batch normalization for his U-net model, <a href="http://juliandewit.github.io/kaggle-ndsb/">described on his blogpost</a>. SELUs <a href="https://arxiv.org/abs/1706.02515">[Klambauer et al, 2017]</a>? Try it by yourself.</li>
+</ol>
+<h3>Thought to the Competition</h3>
+<p>This open dataset is valuable for research communities. Each city on the
+dataset has enough diversity. On the other hand, the quality of annotation in
+Khartoum is relatively poor. Annotations of ground truth of Khartoum are
+difficult and therefore could differ by human annotators.</p>
+<p><a href="https://docs.google.com/document/d/1-Jme2OQEMkegpYbZ10-iqyBJQ9ZWE2ntazWiSanAAbA/edit">The design of the final testing guide</a>
+is good enough to compete. Dockerizing is a good choice even from the perspective of fairness. However, the GPU host
+(p2.xlarge instance on AWS) used for the final testing phase is not powerful
+enough. The computation time on p2.xlarge with Tesla K80 is two times longer
+than my personal machine with GeForce GTX 1080. I was nervous when selecting a model to match the platform.
+See another story about the performance for reference: <a href="https://blog.slavv.com/the-1700-great-deep-learning-box-assembly-setup-and-benchmarks-148c5ebe6415">"The $1700 great Deep Learning box: Assembly, setup and benchmarks"</a>.</p>
+<p><img alt="time cost" src="./images/20170603_time_cost_analysis.png" />
+<div class="caption">
+<small><b>Figure 5</b>: Partial results of training time on GeForce GTX 1080 and Tesla K80.
+</small>
+</div></p>
+<p>Finally, I would like to tell my gratitude to <a href="https://www.topcoder.com/members/walrus71">walrus71</a>,
+who is a co-pilot of the competition. He worked hard for verifying top competitors solutions
+and helped a lot for the reproducibility. Thanks a lot!</p>
+<h3>Reference</h3>
+<ul>
+<li>[Ronneberger et al, 2015] "U-Net: Convolutional Networks for Biomedical Image Segmentation" <a href="https://arxiv.org/abs/1505.04597">https://arxiv.org/abs/1505.04597</a></li>
+<li>[Marmanis et al, 2016] "Classification With an Edge: Improving Semantic Image Segmentation with Boundary Detection" <a href="https://arxiv.org/abs/1612.01337">https://arxiv.org/abs/1612.01337</a></li>
+<li>[Audebert et al, 2017] "Joint Learning from Earth Observation and OpenStreetMap Data to Get Faster Better Semantic Maps" <a href="https://arxiv.org/abs/1705.06057">https://arxiv.org/abs/1705.06057</a></li>
+<li>[Klambauer et al, 2017] "Self-Normalizing Neural Networks" <a href="https://arxiv.org/abs/1706.02515">https://arxiv.org/abs/1706.02515</a></li>
+<li>Lee Cohn, "Object Segmentation on SpaceNet via Multi-task Network Cascades (MNC)" <a href="https://medium.com/the-downlinq/object-segmentation-on-spacenet-via-multi-task-network-cascades-mnc-f1c89d790b42">https://medium.com/the-downlinq/object-segmentation-on-spacenet-via-multi-task-network-cascades-mnc-f1c89d790b42</a></li>
+<li>"Final testing guide for the Spacenet 2 challenge" <a href="https://docs.google.com/document/d/1-Jme2OQEMkegpYbZ10-iqyBJQ9ZWE2ntazWiSanAAbA/edit">https://docs.google.com/document/d/1-Jme2OQEMkegpYbZ10-iqyBJQ9ZWE2ntazWiSanAAbA/edit</a></li>
+</ul>
+<p><br /></p>
+<hr />
+<p><br /></p>
+<h3>O-Ma-Ke</h3>
+<p>独立請負人として仕事してます。航空写真、衛星画像や地理空間情報に関する研究委託・開発の仕事は歓迎します。ご興味がありましたら <code>eown.erΘgmail.com</code> までお気軽にご連絡ください。</p>
+        </article>
+
+        <footer>
+          <a href="#"><i class="demo-icon icon-angle-double-up"> </i></a>
+        </footer>
+    </div>
+
+
+<footer class="blog-footer">
+    <ul class="nav">
+    </ul>
+
+    <p class="disclaimer">
+    &copy; Kohei Ozaki 2016
+    </p>
+</footer>
+            </div>
+<script>
+    var _gaq=[['_setAccount','UA-46769895-1'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+        <script>renderMathInElement(document.body);</script>
+    </body>
+</html>
