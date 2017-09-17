@@ -1,12 +1,15 @@
 @font-face {
   font-family: 'PT Serif';
-  src: url('/theme/font/PT_Serif-Web-Regular.ttf');
+  src: url('/theme/font/pt_serif-web-regular-webfont.woff2') format('woff2'),
+       url('/theme/font/pt_serif-web-regular-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'PT Serif';
-  src: url('/theme/font/PT_Serif-Web-Bold.ttf');
+  src: url('/theme/font/pt_serif-web-bold-webfont.woff2') format('woff2'),
+       url('/theme/font/pt_serif-web-bold-webfont.woff') format('woff');
   font-weight: bold;
   font-style: bold;
 }

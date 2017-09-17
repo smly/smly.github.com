@@ -14,12 +14,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/contrib/auto-render.min.js"></script>
         -->
-        <link rel="stylesheet" href="/theme/css/screen.css">
-        <link rel="stylesheet" href="/theme/css/smly.css">
-        <link rel="stylesheet" href="/theme/dist/katex/katex.min.css">
-        <script src="/theme/dist/jquery-3.1.1.min.js"></script>
-        <script src="/theme/dist/katex/katex.min.js"></script>
-        <script src="/theme/dist/katex/auto-render.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -93,7 +87,7 @@
         </header>
 
         <article>
-            <p><img alt="wilson img" src="images/wilson_res.png" /></p>
+            <p><img alt="wilson img" src="images/wilson_res.png"></p>
 <p>Kirchhoff の行列木定理に対して，ランダムウォークを使った証明を与える論文が面白かったので整理する．</p>
 <ul>
 <li><a href="https://arxiv.org/abs/1306.2059">Determinants, their applications to Markov processes, and a random walk proof of Kirchhoff's matrix tree theorem (arXiv:1306.2059)</a></li>
@@ -124,7 +118,7 @@
 <h3>Loop-erased Random Walk (LERW) &amp; Wilson's algorithm</h3>
 <p>普通の単純ランダムウォーク (SRW) をグラフ上で実行した場合，そのパスはループ（閉路や多重辺）を生成する可能性がある．
 これに対して，ループ除去ランダムウォーク (LERW) は SRW からループが発生した時系列順にループを除去することで，ループのないパスを生成する．</p>
-<p><img alt="lerw" src="images/srw_lerw.png" /></p>
+<p><img alt="lerw" src="images/srw_lerw.png"></p>
 <p>\( \lambda = (y_1,y_2,\cdots,y_j) \) を無向連結グラフ \( \Gamma = (V, E) \) のパスとする．
 \( LE(\lambda) \) を SRW でループが発生した時系列順にループを除去したパスとする（LE は loop-erasure の略）．
 \( LE(\{S_k, k=0,\cdots\}) \) を ループ除去ランダムウォーク (Loop-erased Random Walk; LERW) と呼ぶ．</p>
@@ -380,6 +374,12 @@ Kirchhoff の定理から Kozdron らの Random Walk Proof までの発見の歴
     s.parentNode.insertBefore(g,s)}(document,'script'));
 </script>
 
+        <link rel="stylesheet" href="/theme/css/screen.css">
+        <link rel="stylesheet" href="/theme/css/smly.css">
+        <link rel="stylesheet" href="/theme/dist/katex/katex.min.css">
+        <script src="/theme/dist/jquery-3.1.1.min.js"></script>
+        <script src="/theme/dist/katex/katex.min.js"></script>
+        <script src="/theme/dist/katex/auto-render.min.js"></script>
         <script>renderMathInElement(document.body);</script>
     </body>
 </html>
