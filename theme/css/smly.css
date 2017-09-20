@@ -16,11 +16,9 @@
 
 @font-face {
     font-family: 'juliamo';
-    src: url('../font/juliamo_game_fixed-webfont.woff2') format('woff2'),
-         url('../font/juliamo_game_fixed-webfont.woff') format('woff');
+    src: url('../font/juliamo.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-face {
