@@ -1,3 +1,40 @@
+.badge-paper {
+    color: #fff;
+    background-color: #e78ac3;
+}
+.badge-primary {
+    color: #fff;
+    background-color: #a6d854;
+}
+.badge-news {
+    color: #fff;
+    background-color: #8da0cb;
+}
+.badge-lecture {
+    color: #fff;
+    background-color: #fc8d62;
+}
+.badge-keynote {
+    color: #fff;
+    background-color: #ffd92f;
+}
+.badge-tutorial {
+    color: #fff;
+    background-color: #e5c494;
+}
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+
 .juliamo {
   font-family: "juliamo";
   font-style: normal;
