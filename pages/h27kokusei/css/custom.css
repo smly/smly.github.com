@@ -1,0 +1,66 @@
+a {
+  color: #009688;
+  text-decoration: none;
+}
+body, h3 {
+  margin: 0;
+  padding: 0;
+}
+.two-columns div {
+  /* display: flex; */
+  flex-direction: column;
+  /* justify-content: center; */
+}
+.container {
+  display: flex;
+  height: 100%;
+}
+.left-half {
+  flex: 1;
+  padding: 1rem 3rem 1rem 3rem;
+  overflow-y: auto;
+}
+.right-half {
+  flex: 2;
+  padding: 1rem;
+}
+#main {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+table, th, td {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 0.95rem;
+}
+.info {
+  padding: 15px 15px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+}
+.info h3 {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 2.5em;
+  margin: 10px 0 10px;
+  color: #777;
+}
+.dropdown-toggle button {
+  display: none;
+}
+.footable .btn, .footable .caret {
+    display: inline;
+    vertical-align: middle;
+}
+.footable .btn-primary {
+    display: inline;
+    vertical-align: middle;
+    padding: 10px 10px 8px 10px !important;
+}
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}

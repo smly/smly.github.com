@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+      crossorigin=""></script>
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/footable.standalone.min.css" />
+    <link href="css/custom.css" rel="stylesheet" />
+  </head>
+  <body>
+    <section class="container">
+    <div id="main" class="left-half two-columns">
+      <h1>平成27年度 (2015) 国勢調査・小地域境界データ</h1>
+      <p>「平成27年国勢調査・小地域境界データ」（総務省統計局）を基に簡略化などの加工を施して作成しています。</p>
+      <hr />
+      <table id="load-table" class="table" data-paging="true" data-sorting="true" data-filtering="true"
+ data-toggle-column="first"
+                                                                                  data-show-toggle="false"
+        data-filter-position="left"></table>
+
+    </div>
+    <div id="mapid" class="right-half two-columns">
+    </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.10/pako_inflate.min.js" integrity="sha256-LKJ+mo2uVpzerEJ1LtGu0a/v9/GSgtPMEsCqpUoIvAQ=" crossorigin="anonymous"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/footable.min.js"></script>
+    <script src="js/h27.js"></script>
+    </script>
+  </body>
+</html>
