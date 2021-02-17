@@ -1,27 +1,4 @@
 @font-face {
-  font-family: 'PT Serif';
-  src: url('/theme/font/pt_serif-web-regular-webfont.woff2') format('woff2'),
-       url('/theme/font/pt_serif-web-regular-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'PT Serif';
-  src: url('/theme/font/pt_serif-web-bold-webfont.woff2') format('woff2'),
-       url('/theme/font/pt_serif-web-bold-webfont.woff') format('woff');
-  font-weight: bold;
-  font-style: bold;
-}
-
-@font-face {
-    font-family: 'juliamo';
-    src: url('../font/juliamo.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
   font-family: 'smly';
   src: url('../font/smly.eot?56080357');
   src: url('../font/smly.eot?56080357#iefix') format('embedded-opentype'),

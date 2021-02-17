@@ -120,12 +120,12 @@ code,kbd,pre,samp{
 }
 body{
   background-color: #f9f9f0;
-  font-family:"PT Serif","Georgia","Helvetica Neue",Arial,serif;font-weight:300;
+  font-family: BIZ UDPGothic,"Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","游ゴシック体",YuGothic,"游ゴシック Medium","Yu Gothic Medium","游ゴシック","Yu Gothic","メイリオ",Meiryo,Helvetica,Arial,sans-serif;
 }
-body a{font-weight:400}
+body a{}
 body h1,body h2,body h3,body h4,body h5,body h6{
   text-rendering: optimizelegibility;
-  font-family: "PT Serif","Georgia","Helvetica Neue",Arial,serif;
+  font-family: BIZ UDPGothic,"Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","游ゴシック体",YuGothic,"游ゴシック Medium","Yu Gothic Medium","游ゴシック","Yu Gothic","メイリオ",Meiryo,Helvetica,Arial,sans-serif;
 }
 /*
 body h1 a,body h2 a,body h3 a,body h4 a,body h5 a,body h6 a{
@@ -189,7 +189,9 @@ body iframe{
 /* -------------- landing container */
 
 .landing-container{width:65%;margin:2em auto 0;font-family:"Merriweather","Georgia",serif}
-.landing-container li{font-family:"PT Serif","Georgia","Helvetica Neue",Arial,sans-serif}
+.landing-container li{
+  font-family: BIZ UDPGothic,"Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","游ゴシック体",YuGothic,"游ゴシック Medium","Yu Gothic Medium","游ゴシック","Yu Gothic","メイリオ",Meiryo,Helvetica,Arial,sans-serif;
+}
 
 @media screen and (max-width: 960px){
   .landing-container{width:100%;margin:1em 0}
@@ -224,7 +226,7 @@ body iframe{
   top:0;
   right:0;
   margin:0 2px;
-  font-family: "PT Serif","Georgia","Helvetica Neue",Arial,sans-serif;
+  font-family: BIZ UDPGothic,"Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","游ゴシック体",YuGothic,"游ゴシック Medium","Yu Gothic Medium","游ゴシック","Yu Gothic","メイリオ",Meiryo,Helvetica,Arial,sans-serif;
 }
 
 @media screen and (max-width: 960px){
@@ -295,7 +297,6 @@ body iframe{
 .container .pages h5,
 .container .pages h6{font-size:1.18em}
 .container .pages a{
-  font-weight: 400;
 }
 
 
@@ -310,7 +311,6 @@ body iframe{
 .container .post h5,
 .container .post h6{font-size:1.18em}
 .container .post a{
-  font-weight: 400;
 }
 .container .post img{max-width:100%;height:auto;display:block;margin:1.5em auto}
 .container .post code{
@@ -320,7 +320,7 @@ body iframe{
   background-color:#f9f2f4;
   border-radius:4px}
 .container .post .highlight{font-size:0.9em;overflow-x:auto}
-.container .post blockquote{font-style:italic;font-weight:300}
+.container .post blockquote{font-style:italic;}
 .container .post header{
   margin: 2.2em 0;
   margin-bottom: 1.5em;
@@ -370,7 +370,7 @@ body iframe{
   color: #2dd634;
 }
 .container .pages code{
-  font-family: "PT Serif","Georgia","Helvetica Neue",Arial,sans-serif;
+  font-family: BIZ UDPGothic,"Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","游ゴシック体",YuGothic,"游ゴシック Medium","Yu Gothic Medium","游ゴシック","Yu Gothic","メイリオ",Meiryo,Helvetica,Arial,sans-serif;
   padding: 2px 4px;
   font-size:90%;
   color:#c7254e;
@@ -515,7 +515,7 @@ a {
 }
 
 .heading, body>header h1, h1, h2, h3, h4, h5, h6 {
-  font-family: "PT Serif","Georgia","Helvetica Neue",Arial,sans-serif;
+  font-family: BIZ UDPGothic,"Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","游ゴシック体",YuGothic,"游ゴシック Medium","Yu Gothic Medium","游ゴシック","Yu Gothic","メイリオ",Meiryo,Helvetica,Arial,sans-serif;
 }
 
 a {
